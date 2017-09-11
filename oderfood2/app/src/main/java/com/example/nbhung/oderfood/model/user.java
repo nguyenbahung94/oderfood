@@ -4,14 +4,14 @@ package com.example.nbhung.oderfood.model;
  * Created by nbhung on 9/6/2017.
  */
 
-public class user {
+public class User {
     private String name;
     private String password;
 
-    public user() {
+    public User() {
     }
 
-    public user(String name, String password) {
+    public User(String name, String password) {
         this.name = name;
         this.password = password;
     }

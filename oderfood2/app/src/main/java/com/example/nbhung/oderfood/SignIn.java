@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.nbhung.oderfood.common.common;
-import com.example.nbhung.oderfood.model.user;
+import com.example.nbhung.oderfood.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,7 +46,7 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
-                            user users = dataSnapshot.child(edtPhone.getText().toString()).getValue(user.class);
+                            User users = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
                             if (users.getPassword().equals(edtPassWord.getText().toString())) {
                                 progressDialog.dismiss();
                                 Toast.makeText(SignIn.this, "Sign in successfully", Toast.LENGTH_SHORT).show();

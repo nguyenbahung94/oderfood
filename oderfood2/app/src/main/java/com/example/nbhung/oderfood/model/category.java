@@ -4,14 +4,14 @@ package com.example.nbhung.oderfood.model;
  * Created by nbhung on 9/6/2017.
  */
 
-public class category {
+public class Category {
     private String Name;
     private String Image;
 
-    public category() {
+    public Category() {
     }
 
-    public category(String name, String image) {
+    public Category(String name, String image) {
         Name = name;
         Image = image;
     }

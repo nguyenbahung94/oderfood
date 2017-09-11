@@ -1,5 +1,6 @@
 package com.example.nbhung.oderfood;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,12 +17,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.nbhung.oderfood.InterfaceView.ItemClickListener;
 import com.example.nbhung.oderfood.ViewHolder.MenuViewHolder;
 import com.example.nbhung.oderfood.common.common;
-import com.example.nbhung.oderfood.model.category;
+import com.example.nbhung.oderfood.model.Category;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,6 +37,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private TextView tvFullName;
     private RecyclerView recycler_menu;
     private RecyclerView.LayoutManager layoutManager;
+    private ActionBarDrawerToggle toggle;
+    private FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //init firebase
         database = FirebaseDatabase.getInstance();
@@ -59,12 +62,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, R.string.Open, R.string.close);
+        toggle = new ActionBarDrawerToggle(this, drawer, R.string.Open, R.string.close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //set name user
+        //set name User
         View headView = navigationView.getHeaderView(0);
         tvFullName = (TextView) headView.findViewById(R.id.tvFullName);
         tvFullName.setText(common.currentUser.getName());
@@ -79,17 +82,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     private void loadMenu() {
-        FirebaseRecyclerAdapter<category, MenuViewHolder> adapter = new FirebaseRecyclerAdapter<category, MenuViewHolder>(category.class, R.layout.menu_item,MenuViewHolder.class,
+        adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(Category.class, R.layout.menu_item, MenuViewHolder.class,
                 dataCategory) {
             @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, category model, int position) {
+            protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
                 viewHolder.txtMenuName.setText(model.getName());
                 Picasso.with(getApplicationContext()).load(model.getImage()).into(viewHolder.imageView);
-                final category clickItem = model;
+                final Category clickItem = model;
                 viewHolder.SetItemClickListenner(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Toast.makeText(Home.this, ""+position, Toast.LENGTH_SHORT).show();
+                        Intent foodList = new Intent(Home.this, FoodList.class);
+                        //because categoryId is key
+                        foodList.putExtra("CategoryId","10");
+                        startActivity(foodList);
                     }
                 });
             }
@@ -122,5 +128,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.nbhung.oderfood.model.user;
+import com.example.nbhung.oderfood.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +37,7 @@ public class signUp extends AppCompatActivity {
 
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference databaseReference = database.getReference("user");
+        final DatabaseReference databaseReference = database.getReference("User");
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,14 +48,14 @@ public class signUp extends AppCompatActivity {
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        //check if already user phone
+                        //check if already User phone
                         if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
                             mDialog.dismiss();
                             if (flat)
                                 Toast.makeText(signUp.this, "Phone number already register", Toast.LENGTH_SHORT).show();
                         } else {
                             mDialog.dismiss();
-                            user users = new user(edtName.getText().toString(), edtPassWord.getText().toString());
+                            User users = new User(edtName.getText().toString(), edtPassWord.getText().toString());
                             databaseReference.child(edtPhone.getText().toString()).setValue(users);
                             Toast.makeText(signUp.this, "Sign up successfully", Toast.LENGTH_SHORT).show();
                             flat=false;
