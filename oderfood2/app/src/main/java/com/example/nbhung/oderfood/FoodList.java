@@ -1,12 +1,12 @@
 package com.example.nbhung.oderfood;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.nbhung.oderfood.InterfaceView.ItemClickListener;
 import com.example.nbhung.oderfood.ViewHolder.FoodViewHolder;
@@ -55,7 +55,9 @@ public class FoodList extends AppCompatActivity {
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Toast.makeText(FoodList.this, "" + local.getName(), Toast.LENGTH_SHORT).show();
+                        Intent foodSDetail = new Intent(FoodList.this, foodDetail.class);
+                        foodSDetail.putExtra("FoodId", adapter.getRef(position).getKey());
+                        startActivity(foodSDetail);
                     }
                 });
             }
