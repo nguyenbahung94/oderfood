@@ -1,5 +1,6 @@
 package com.example.nbhung.oderfood;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -32,7 +33,7 @@ public class foodDetail extends AppCompatActivity {
         setContentView(R.layout.activity_food_detail);
 
         database = FirebaseDatabase.getInstance();
-        foods = database.getReference("Foods");
+        foods = database.getReference("foods");
 
         numberButton = (ElegantNumberButton) findViewById(R.id.number_button);
         btnCart = (FloatingActionButton) findViewById(R.id.btnCart);
@@ -45,9 +46,9 @@ public class foodDetail extends AppCompatActivity {
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandeAppbar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapseAppbar);
-
-        if (getIntent() != null) {
-            foodId = getIntent().getStringExtra("FoodId");
+        Intent intent=getIntent();
+        if (intent!= null) {
+            foodId =intent.getStringExtra("FoodId");
             if (!foodId.isEmpty()) {
                 getDetailFood(foodId);
             }

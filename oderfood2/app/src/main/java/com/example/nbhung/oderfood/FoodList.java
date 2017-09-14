@@ -56,7 +56,7 @@ public class FoodList extends AppCompatActivity {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
                         Intent foodSDetail = new Intent(FoodList.this, foodDetail.class);
-                        foodSDetail.putExtra("FoodId", adapter.getRef(position).getKey());
+                        foodSDetail.putExtra("FoodId", adapter.getRef(position).getKey()+"");
                         startActivity(foodSDetail);
                     }
                 });

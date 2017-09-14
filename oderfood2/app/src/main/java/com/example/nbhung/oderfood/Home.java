@@ -39,6 +39,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private RecyclerView.LayoutManager layoutManager;
     private ActionBarDrawerToggle toggle;
     private FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
+    private NavigationView navigationView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         toggle = new ActionBarDrawerToggle(this, drawer, R.string.Open, R.string.close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //set name User
         View headView = navigationView.getHeaderView(0);
@@ -94,7 +95,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     public void onClick(View view, int position, boolean isLongClick) {
                         Intent foodList = new Intent(Home.this, FoodList.class);
                         //because categoryId is key
-                        foodList.putExtra("CategoryId","10");
+                        foodList.putExtra("CategoryId", "10");
                         startActivity(foodList);
                     }
                 });
@@ -117,6 +118,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_item1:
+//                Menu menu = navigationView.getMenu();
+//                MenuItem abc = menu.findItem(R.id.nav_item1);
+                item.setVisible(false);
                 break;
             case R.id.nav_item2:
                 break;

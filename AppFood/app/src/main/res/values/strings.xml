@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AppFood</string>
+    <string name="desEat">Eat Eat Eat</string>
+    <string name="signup">Sign Up</string>
+    <string name="des">Des</string>
+    <string name="signin">Sign In</string>
+    <string name="close">Close</string>
+    <string name="Open">Open</string>
+</resources>

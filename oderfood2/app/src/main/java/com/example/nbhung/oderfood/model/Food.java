@@ -5,7 +5,7 @@ package com.example.nbhung.oderfood.model;
  */
 
 public class Food {
-    String name, image, description,menuid,price,discount;
+    String name, image, description, menuid, price, discount;
 
     public Food() {
     }
@@ -43,6 +43,14 @@ public class Food {
         this.description = description;
     }
 
+    public String getMenuid() {
+        return menuid;
+    }
+
+    public void setMenuid(String menuid) {
+        this.menuid = menuid;
+    }
+
     public String getPrice() {
         return price;
     }
@@ -57,13 +65,5 @@ public class Food {
 
     public void setDiscount(String discount) {
         this.discount = discount;
-    }
-
-    public String getMenuid() {
-        return menuid;
-    }
-
-    public void setMenuid(String menuid) {
-        this.menuid = menuid;
     }
 }
